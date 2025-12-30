@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../api';
 import { Search, X, Check } from 'lucide-react';
 
 const RecipeSelector = ({ onSelect, onClose }) => {
@@ -16,7 +17,7 @@ const RecipeSelector = ({ onSelect, onClose }) => {
 
     const fetchRecipes = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/recipes?search=${search}`);
+            const res = await axios.get(`${API_URL}/api/recipes?search=${search}`);
             setRecipes(res.data);
             setLoading(false);
         } catch (err) {

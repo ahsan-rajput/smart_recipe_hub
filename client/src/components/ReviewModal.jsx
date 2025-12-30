@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from '../api';
 import { Star, X } from 'lucide-react';
 
 const ReviewModal = ({ recipeId, onClose, onReviewAdded }) => {
@@ -13,7 +14,7 @@ const ReviewModal = ({ recipeId, onClose, onReviewAdded }) => {
         const token = localStorage.getItem('token');
 
         try {
-            await axios.post('http://localhost:5000/api/reviews',
+            await axios.post(`${API_URL}/api/reviews`,
                 { recipe_id: recipeId, rating, comment },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

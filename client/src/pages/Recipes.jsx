@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, Flame, RotateCcw, Heart } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../api';
 import RecipeCard from '../components/RecipeCard';
 import ReviewModal from '../components/ReviewModal';
 import RecipeDetailsModal from '../components/RecipeDetailsModal';
@@ -24,7 +25,7 @@ const Recipes = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) return;
-            const res = await axios.get('http://localhost:5000/api/favorites', {
+            const res = await axios.get(`${API_URL}/api/favorites`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setFavorites(res.data);
@@ -40,7 +41,7 @@ const Recipes = () => {
                 alert('Please login to favorite recipes');
                 return;
             }
-            const res = await axios.post('http://localhost:5000/api/favorites', { recipeId }, {
+            const res = await axios.post(`${API_URL}/api/favorites`, { recipeId }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -56,7 +57,7 @@ const Recipes = () => {
 
     const fetchRecipes = async (searchTerm = '') => {
         try {
-            const url = searchTerm ? `http://localhost:5000/api/recipes?search=${searchTerm}` : 'http://localhost:5000/api/recipes';
+            const url = searchTerm ? `${API_URL}/api/recipes?search=${searchTerm}` : `${API_URL}/api/recipes`;
             const res = await axios.get(url);
 
             // API returns DB fields. RecipeCard expects image_url, title, etc.

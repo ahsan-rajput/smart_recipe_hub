@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { X, Clock, Users, Flame, ChefHat, Info, ListChecks, Play, Star } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../api';
 
 const RecipeDetailsModal = ({ recipe, onClose }) => {
     const [activeTab, setActiveTab] = useState('ingredients');
@@ -95,7 +96,7 @@ const RecipeDetailsModal = ({ recipe, onClose }) => {
 
     const fetchReviews = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/reviews/${recipe.id}`);
+            const res = await axios.get(`${API_URL}/api/recipes/${recipe.id}/reviews`);
             const fetchedReviews = res.data;
             setReviews(fetchedReviews);
 
@@ -120,7 +121,7 @@ const RecipeDetailsModal = ({ recipe, onClose }) => {
                 return;
             }
 
-            await axios.post('http://localhost:5000/api/reviews', {
+            await axios.post(`${API_URL}/api/reviews`, {
                 recipeId: recipe.id,
                 rating: userReview.rating,
                 comment: userReview.comment

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../api';
 import { Plus, Trash2, Search, ChefHat, Sparkles } from 'lucide-react';
 import RecipeCard from '../components/RecipeCard';
 import RecipeDetailsModal from '../components/RecipeDetailsModal';
@@ -21,7 +22,7 @@ const Pantry = () => {
         if (!token) return;
 
         try {
-            const res = await axios.get('http://localhost:5000/api/pantry', {
+            const res = await axios.get(`${API_URL}/api/pantry`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setItems(res.data);
@@ -38,7 +39,7 @@ const Pantry = () => {
         if (!newItem.trim() || !token) return;
 
         try {
-            await axios.post('http://localhost:5000/api/pantry',
+            await axios.post(`${API_URL}/api/pantry`,
                 { name: newItem },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -53,7 +54,7 @@ const Pantry = () => {
     const deleteItem = async (id) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:5000/api/pantry/${id}`, {
+            await axios.delete(`${API_URL}/api/pantry/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setItems(items.filter(i => i.id !== id));
@@ -66,7 +67,7 @@ const Pantry = () => {
         setSearching(true);
         const token = localStorage.getItem('token');
         try {
-            const res = await axios.get('http://localhost:5000/api/recipes/search/smart', {
+            const res = await axios.get(`${API_URL}/api/recipes/search/smart`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

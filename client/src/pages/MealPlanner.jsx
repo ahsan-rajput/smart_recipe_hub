@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2, ShoppingCart, Save, Coffee, Sun, Moon, CalendarHeart, ShoppingBag, ChevronLeft, ChevronRight, Calendar, X, ChefHat } from 'lucide-react';
 import axios from 'axios';
+import API_URL from '../api';
 import { useNavigate } from 'react-router-dom';
 import RecipeSelector from '../components/RecipeSelector';
 
@@ -96,7 +97,7 @@ const MealPlanner = () => {
 
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:5000/api/meal-plan?weekStart=${date}`, { headers });
+            const res = await axios.get(`${API_URL}/api/meal-plan?weekStart=${date}`, { headers });
 
             if (res.data && res.data.plan_json) {
                 const fullPlan = JSON.parse(JSON.stringify(emptyPlan)); // Clone template
@@ -136,7 +137,7 @@ const MealPlanner = () => {
 
         setIsSaving(true);
         try {
-            await axios.post('http://localhost:5000/api/meal-plan', {
+            await axios.post(`${API_URL}/api/meal-plan`, {
                 plan_json: passedPlan || weekPlan,
                 weekStart: selectedDate
             }, { headers });
@@ -178,7 +179,7 @@ const MealPlanner = () => {
             // Auto-save first
             await saveMealPlan();
 
-            const res = await axios.get(`http://localhost:5000/api/shopping-list?weekStart=${selectedDate}`, { headers });
+            const res = await axios.get(`${API_URL}/api/shopping-list?weekStart=${selectedDate}`, { headers });
             setShoppingList(res.data);
             setShowShoppingList(true);
         } catch (err) {
