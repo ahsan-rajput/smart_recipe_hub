@@ -93,7 +93,7 @@ const MealPlanner = () => {
             setLoading(false);
             return;
         }
-
+        // this will load data from local host
         setLoading(true);
         try {
             const res = await axios.get(`http://localhost:5000/api/meal-plan?weekStart=${date}`, { headers });
