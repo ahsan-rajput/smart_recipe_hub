@@ -3,7 +3,7 @@ import { Plus, Trash2, ShoppingCart, Save, Coffee, Sun, Moon, CalendarHeart, Sho
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import RecipeSelector from '../components/RecipeSelector';
-// edit by Ahsan
+// edit byAhsan
 const MealPlanner = () => {
     const navigate = useNavigate();
     const [weekPlan, setWeekPlan] = useState({
@@ -62,7 +62,7 @@ const MealPlanner = () => {
         const options = { month: 'short', day: 'numeric' };
         return `${start.toLocaleDateString(undefined, options)} - ${end.toLocaleDateString(undefined, options)}`;
     };
-
+    // this willl get date 
     const getDayWithDate = (mondayStr, dayName) => {
         const dayMap = { Monday: 0, Tuesday: 1, Wednesday: 2, Thursday: 3, Friday: 4, Saturday: 5, Sunday: 6 };
         const [y, m, d] = mondayStr.split('-').map(Number);
