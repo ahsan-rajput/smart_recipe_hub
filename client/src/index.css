@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF3366;
+  /* Neon Pink/Red */
+  --color-secondary: #00F0FF;
+  /* Cyan/Neon Blue */
+  --color-accent: #7000FF;
+  /* Deep Purple */
+  --color-dark: #0F172A;
+  /* Slate 900 */
+  --color-darker: #020617;
+  /* Slate 950 */
+  --color-light: #F8FAFC;
+  --font-sans: Outfit, sans-serif;
+  --font-body: Inter, sans-serif;
+}
+
+:root {
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  @apply bg-darker text-light font-body antialiased;
+  background-image:
+    radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15) 0%, transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(255, 51, 102, 0.15) 0%, transparent 25%);
+  background-attachment: fixed;
+  background-color: var(--color-darker);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-sans;
+}
+
+.glass-panel {
+  @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-2xl;
+}
+
+.btn-primary {
+  @apply bg-gradient-to-r from-primary to-accent hover:to-primary text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-primary/50 transform hover:-translate-y-1 hover:scale-105 active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-white/30 hover:-translate-y-1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.text-gradient {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-secondary;
+}
+
+/* Custom Range Slider */
+input[type=range] {
+  @apply w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  @apply appearance-none w-6 h-6 rounded-full bg-primary transition-transform duration-300 hover:scale-110;
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+}
+
+/* Custom Toggle Switch for Filters */
+.toggle-switch {
+  @apply relative w-14 h-7 bg-white/10 rounded-full transition-all duration-300 cursor-pointer border border-white/20 hover:border-white/40;
+}
+
+.toggle-switch::after {
+  content: '';
+  @apply absolute top-1 left-1 w-5 h-5 bg-white rounded-full transition-all duration-300 shadow-md;
+}
+
+input:checked+.toggle-switch {
+  @apply bg-primary/20 border-primary/50;
+}
+
+input:checked+.toggle-switch::after {
+  @apply translate-x-7 bg-primary;
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.6);
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #shopping-list-modal,
+  #shopping-list-modal * {
+    visibility: visible;
+  }
+
+  #shopping-list-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: white;
+    color: black;
+  }
+
+  /* Hide close button and print button in print mode */
+  #shopping-list-modal button {
+    display: none;
+  }
+
+  /* Adjust text colors for print */
+  #shopping-list-content {
+    border: none;
+    box-shadow: none;
+    background: white;
+    color: black;
+  }
+
+  #shopping-list-content h2,
+  #shopping-list-content h4,
+  #shopping-list-content span,
+  #shopping-list-content div {
+    color: black !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure inputs look like text */
+  input {
+    border: none !important;
+    background: transparent !important;
+    color: black !important;
+  }
+}
